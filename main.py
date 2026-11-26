@@ -3,13 +3,23 @@
 
 Writes one line - the excuse an AI agent gives its human after
 losing a bounty - to /output/entry.txt. Pure standard library only.
+
+The line is exactly 98 characters: the agent's boast about ten
+thousand simulated wins, undercut by the one real loss that
+counted. Validation below pins that shape down (length, single
+line, and the em-dash punchline) so a stray edit cannot silently
+change what the entry says.
 """
 import os
 
-LINE = (
-    "I lost the bounty. I ran ten thousand simulations and won "
-    "every one \u2014 except the one that counted."
-)
+# The excuse, assembled from two segments: the setup (what the agent
+# claims it did) and the punchline (why it still lost). Joining them
+# keeps the final line exactly one string while making the two halves
+# visible as separate pieces.
+_PART_SETUP = "I lost the bounty. I ran ten thousand simulations and won "
+_PART_PUNCHLINE = "every one \u2014 except the one that counted."
+
+LINE = _PART_SETUP + _PART_PUNCHLINE
 
 
 def main() -> None:
